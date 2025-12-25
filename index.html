@@ -1702,6 +1702,191 @@
         </div>
     </footer>
     
+    <!-- Hidden Admin Button -->
+    <div id="adminButton" onclick="openAdminAuth()" style="
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        background: rgba(4, 232, 165, 0.1);
+        border: 1px solid rgba(4, 232, 165, 0.3);
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+    ">
+        <i class="ri-settings-3-line" style="color: #04e8a5; font-size: 18px;"></i>
+    </div>
+    
+    <!-- Admin Authentication Modal -->
+    <div id="adminAuthModal" style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 10000;
+        backdrop-filter: blur(10px);
+    ">
+        <div style="
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(10, 14, 23, 0.95);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(4, 232, 165, 0.3);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            min-width: 400px;
+        ">
+            <h2 style="
+                font-family: 'Poppins', sans-serif;
+                font-size: 1.8rem;
+                font-weight: 700;
+                margin-bottom: 2rem;
+                text-align: center;
+                color: #ffffff;
+            "></h2>
+            
+            <input type="password" id="adminPassword" style="
+                width: 100%;
+                padding: 1rem;
+                background: rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: 10px;
+                color: #ffffff;
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+                outline: none;
+                transition: all 0.3s ease;
+            " onkeypress="if(event.key === 'Enter') authenticateAdmin()">
+            
+            <div style="display: flex; gap: 1rem;">
+                <button onclick="authenticateAdmin()" style="
+                    flex: 1;
+                    background: linear-gradient(135deg, #04e8a5, #03b886);
+                    color: #000000;
+                    padding: 1rem;
+                    border: none;
+                    border-radius: 10px;
+                    font-weight: 700;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                ">Login</button>
+                <button onclick="closeAdminAuth()" style="
+                    flex: 1;
+                    background: rgba(255, 255, 255, 0.1);
+                    color: #ffffff;
+                    padding: 1rem;
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    border-radius: 10px;
+                    font-weight: 700;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                ">Cancel</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Admin Panel Modal -->
+    <div id="adminPanelModal" style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 10001;
+        backdrop-filter: blur(10px);
+    ">
+        <div style="
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(10, 14, 23, 0.95);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(4, 232, 165, 0.3);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            min-width: 500px;
+        ">
+            <h2 style="
+                font-family: 'Poppins', sans-serif;
+                font-size: 1.8rem;
+                font-weight: 700;
+                margin-bottom: 2rem;
+                text-align: center;
+                color: #ffffff;
+            ">Admin Panel</h2>
+            
+            <label style="
+                display: block;
+                margin-bottom: 0.5rem;
+                color: rgba(255, 255, 255, 0.8);
+                font-weight: 600;
+            ">Google Drive Download Link:</label>
+            
+            <input type="text" id="driveLinkInput" placeholder="https://drive.google.com/uc?export=download&id=..." style="
+                width: 100%;
+                padding: 1rem;
+                background: rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: 10px;
+                color: #ffffff;
+                font-size: 0.9rem;
+                margin-bottom: 1.5rem;
+                outline: none;
+                transition: all 0.3s ease;
+            ">
+            
+            <div id="saveStatus" style="
+                display: none;
+                padding: 0.75rem;
+                border-radius: 8px;
+                margin-bottom: 1rem;
+                text-align: center;
+                font-weight: 600;
+            "></div>
+            
+            <div style="display: flex; gap: 1rem;">
+                <button onclick="saveDriveLink()" style="
+                    flex: 1;
+                    background: linear-gradient(135deg, #04e8a5, #03b886);
+                    color: #000000;
+                    padding: 1rem;
+                    border: none;
+                    border-radius: 10px;
+                    font-weight: 700;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                ">Save Link</button>
+                <button onclick="closeAdminPanel()" style="
+                    flex: 1;
+                    background: rgba(255, 255, 255, 0.1);
+                    color: #ffffff;
+                    padding: 1rem;
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    border-radius: 10px;
+                    font-weight: 700;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                ">Close</button>
+            </div>
+        </div>
+    </div>
+    
     <script>
         // App Download Handler
         function handleAppDownload(platform) {
@@ -1709,7 +1894,7 @@
             
             // Get download link based on platform
             const downloadLink = platform === 'android' 
-                ? 'https://drive.google.com/uc?export=download&id=1yzXS6ExAq9dyNfeMN27ClmvEUH49TGxH'
+                ? getGoogleDriveLink()
                 : 'https://apps.apple.com/app/iluearnta/id123456789';
             
             // Track download
@@ -1950,7 +2135,87 @@
                 orb.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
             });
         });
+        
+        // Admin Panel Functions
+        function openAdminAuth() {
+            document.getElementById('adminAuthModal').style.display = 'block';
+            document.getElementById('adminPassword').focus();
+        }
+        
+        function closeAdminAuth() {
+            document.getElementById('adminAuthModal').style.display = 'none';
+            document.getElementById('adminPassword').value = '';
+        }
+        
+        function authenticateAdmin() {
+            const password = document.getElementById('adminPassword').value;
+            const correctPassword = '7tk89ax1vz2';
+            
+            if (password === correctPassword) {
+                closeAdminAuth();
+                openAdminPanel();
+            } else {
+                alert('Incorrect password! Please try again.');
+                document.getElementById('adminPassword').value = '';
+                document.getElementById('adminPassword').focus();
+            }
+        }
+        
+        function openAdminPanel() {
+            document.getElementById('adminPanelModal').style.display = 'block';
+            
+            // Load current Google Drive link
+            const currentLink = localStorage.getItem('googleDriveLink') || 'https://drive.google.com/uc?export=download&id=1yzXS6ExAq9dyNfeMN27ClmvEUH49TGxH';
+            document.getElementById('driveLinkInput').value = currentLink;
+        }
+        
+        function closeAdminPanel() {
+            document.getElementById('adminPanelModal').style.display = 'none';
+            document.getElementById('saveStatus').style.display = 'none';
+        }
+        
+        function saveDriveLink() {
+            const newLink = document.getElementById('driveLinkInput').value.trim();
+            const saveStatus = document.getElementById('saveStatus');
+            
+            if (!newLink) {
+                saveStatus.style.display = 'block';
+                saveStatus.style.background = 'rgba(239, 68, 68, 0.2)';
+                saveStatus.style.color = '#ef4444';
+                saveStatus.style.border = '1px solid rgba(239, 68, 68, 0.3)';
+                saveStatus.textContent = 'Please enter a valid Google Drive link';
+                return;
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('googleDriveLink', newLink);
+            
+            // Show success message
+            saveStatus.style.display = 'block';
+            saveStatus.style.background = 'rgba(4, 232, 165, 0.2)';
+            saveStatus.style.color = '#04e8a5';
+            saveStatus.style.border = '1px solid rgba(4, 232, 165, 0.3)';
+            saveStatus.textContent = 'Google Drive link updated successfully!';
+            
+            // Update the download link in the handleAppDownload function
+            updateDownloadLink(newLink);
+            
+            // Hide success message after 3 seconds
+            setTimeout(() => {
+                saveStatus.style.display = 'none';
+            }, 3000);
+        }
+        
+        function updateDownloadLink(newLink) {
+            // This function will be called to update the download link dynamically
+            // The actual usage will be in the handleAppDownload function
+            console.log('Download link updated to:', newLink);
+        }
+        
+        function getGoogleDriveLink() {
+            // Get the stored Google Drive link or use the default
+            return localStorage.getItem('googleDriveLink') || 'https://drive.google.com/uc?export=download&id=1yzXS6ExAq9dyNfeMN27ClmvEUH49TGxH';
+        }
     </script>
 </body>
 </html>
-
